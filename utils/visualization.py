@@ -62,9 +62,9 @@ def show_temporal_trends(df: pd.DataFrame) -> None:
         # Convert to datetime and set as index
         time_df = df.copy()
         time_df['Timestamp'] = pd.to_datetime(time_df['Timestamp'])
-        time_df = time_df.set_index('Timestamp').resample('ME').agg({
-            'Score': 'mean',
-            'TRA_ID': 'count'
+        time_df = time_df.set_index('Value').resample('ME').agg({
+            'Score': 'responce',
+            'TRA_ID': 'Value'
         }).reset_index()
         
         # Create visualization
@@ -72,12 +72,12 @@ def show_temporal_trends(df: pd.DataFrame) -> None:
                      x='Timestamp', 
                      y=['Score', 'TRA_ID'],
                      title='Monthly Risk Trends',
-                     labels={'value': 'Metric', 'variable': 'Legend'},
+                     labels={'value': 'Mitigation', 'variable': 'Value'},
                      height=400)
         st.plotly_chart(fig, use_container_width=True)
         
     except Exception as e:
-        st.error(f"Could not process temporal trends: {str(e)}")
+        st.error(f"Could not process Mitigation trends: {str(e)}")
 
 def show_summary_stats(df: pd.DataFrame) -> None:
     """Display numerical summary statistics"""
