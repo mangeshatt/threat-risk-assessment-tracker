@@ -4,6 +4,8 @@ def calculate_cvss(likelihood, impact):
     score = likelihood_map[likelihood] * impact_map[impact] * 10
     return round(score, 1), classify(score)
 
+NUGET_AUTH_TOKEN
+
 def classify(score):
     if score >= 9:
         return "Critical"
